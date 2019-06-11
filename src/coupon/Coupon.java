@@ -9,7 +9,7 @@ package coupon;
  */
 public class Coupon {
 
-	private long id;
+	private int id;
 	private String title;
 	private String startDate;
 	private String endDate;
@@ -42,7 +42,7 @@ public class Coupon {
 	 *            the image
 	 */
 	// CTor
-	public Coupon(long id, String title, String startDate, String endDate, int amount, String type, String message,
+	public Coupon(int id, String title, String startDate, String endDate, int amount, String type, String message,
 			double price, String image) {
 		setId(id);
 		setTitle(title);
@@ -68,7 +68,7 @@ public class Coupon {
 	 * @return the id
 	 */
 	// getters and setters
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -78,7 +78,7 @@ public class Coupon {
 	 * @param id
 	 *            the new id
 	 */
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

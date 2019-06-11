@@ -77,8 +77,8 @@ public class Company {
 	// toString
 	@Override
 	public String toString() {
-		return "Company : id = " + id + "\ncompName = " + compName + "\npassword = " + 
-				password + "\nemail = " + email+ 
+		return "\nid = " + id + "\ncompName = " + compName + 
+				"\npassword = " + password + "\nemail = " + email+ 
 				"\ncoupons = " + coupons + "\n\n";
 	}
 

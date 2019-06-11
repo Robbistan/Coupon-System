@@ -6,7 +6,7 @@ public interface CouponDao {
 
 	void insertCoupon(Coupon coupon) throws Exception;
 
-	void removeCoupon(Coupon coupon) throws Exception;
+	void removeCoupon(int id) throws Exception;
 
 	void updateCoupon(Coupon coupon) throws Exception;
 
@@ -15,5 +15,7 @@ public interface CouponDao {
 	Set<Coupon> getAllCoupons() throws Exception;
 
 	Set<Coupon> getCouponByType(CouponType couponType) throws Exception;
+
+//	void removeCoupon(Coupon coupon) throws Exception;
 
 }

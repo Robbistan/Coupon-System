@@ -55,8 +55,7 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", custName=" + custName + ", password=" + password + ", coupons=" + coupons
-				+ "]";
+		return "Customer : \nid=" + id + "\ncustName=" + custName + "\npassword=" + password + "\ncoupons=" + coupons;
 	}
 
 }

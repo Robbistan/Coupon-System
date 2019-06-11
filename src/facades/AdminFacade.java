@@ -20,16 +20,16 @@ public class AdminFacade implements CouponClientFacade {
 	public AdminFacade() {
 	}
 
-	public void createCompany(Company company) throws SQLException  {
+	public void createCompany(Company company) throws SQLException {
 		companyDBDAO.createCompany(company);
 	}
 
-	public void removeCompany(Company company) throws Exception {
-		companyDBDAO.removeCompany(company);
+	public void removeCompany(long id) throws Exception {
+		companyDBDAO.removeCompany(id);
 	}
 
-	public void updateCompany(Company company) throws Exception {
-		companyDBDAO.updateCompany(company);
+	public void updateCompany(long idOld, long idNew) throws SQLException {
+		companyDBDAO.updateCompany(idOld, idNew);
 	}
 
 	public Company getCompany(int id) throws Exception {
@@ -61,8 +61,14 @@ public class AdminFacade implements CouponClientFacade {
 	}
 
 	@Override
-	public CouponClientFacade login(String name, String password, String clientType) {
-		return null;
+	public void login(String name, String password, String clientType) {
+		if(name.equalsIgnoreCase("admin") && password.equalsIgnoreCase("1234")) {
+			System.out.println("Welcome " + name);
+			AdminFacade af = new AdminFacade();
+		}else {
+		System.out.println("username or password incorrect");
+		} 
+		
 	}
 
 }

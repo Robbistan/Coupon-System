@@ -4,6 +4,7 @@
 
 package company;
 
+import java.sql.SQLException;
 import java.util.Set;
 import coupon.Coupon;
 
@@ -11,16 +12,19 @@ public interface CompanyDao {
 
 	void createCompany(Company company) throws Exception;
 
-	void removeCompany(Company company) throws Exception;
+	void removeCompany(long id) throws SQLException;
 
-	void updateCompany(Company company) throws Exception;
+	void updateCompany(long idOld, long idNew) throws SQLException ;
 
-	Company getCompany(int id) throws Exception;
+	Company getCompany(long id) throws SQLException;
 
 	Set<Company> getAllCompanies() throws Exception;
 
 	Set<Coupon> getCouponsByCompName(String compName) throws Exception;
 
 	boolean login(String compName, String password);
+
+
+
 
 }

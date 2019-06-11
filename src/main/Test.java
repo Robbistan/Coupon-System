@@ -1,44 +1,50 @@
 package main;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.util.List;
-import java.util.Properties;
-
-import company.Company;
-import coupon.Coupon;
 import facades.AdminFacade;
 import facades.CompanyFacade;
+import facades.CustomerFacade;
+import facades.CouponClientFacade;
 
 public class Test {
 
 	public static void main(String[] args) throws Exception {
 
 		Database db = new Database();
-//		db.createTable(db.sqlCustomerCoupon);
-//		db.createTable(db.sqlCompanyCoupon);
+		CouponSystem.getInstance().login("admin", "12345", null);
 		
+	    		
 		
-		
-		
-//		AdminFacade af = new AdminFacade();
-		CompanyFacade cf = new CompanyFacade();
-//		db.createDatabase();
-
+		// db.createTable(db.sqlCustomerCoupon);
+		// db.createTable(db.sqlCompanyCoupon);
+//		 db.createDatabase();
 		// db.createTable(db.sqlCoupon);
-		// db.dropTable(db.sqlDropTableCompany);
-		// db.dropTable(db.sqlDropTableCoupon);
-		// db.dropTable(db.sqlDropTableCustomer);
-//		 Company c = new Company(124, "TATATT", "shinjan", "email", null);
+//		 db.dropTable(db.sqlDropTableCompany);
+//		 db.dropTable(db.sqlDropTableCoupon);
+//		 db.dropTable(db.sqlDropTableCustomer);
+		// db.dropTable(db.sqlDropTableCustomerCoupon);
+//		db.dropTable(db.sqlDropTableCompanyCoupon);
+		
+
+//		 AdminFacade af = new AdminFacade();
+//		 af.getCompany(11);
+//		 af.updateCompany(1L, 10L);
+//		 Company c = new Company(123, "Toyota", "password", "email", null);
 //		 af.createCompany(c);
+//		 af.removeCompany(10L);
+		 
+		 
+//		 CompanyFacade cf = new CompanyFacade();
+		// cf.removeCoupon(5);
+		// Coupon c = new Coupon(3, "SATIVA", "2020-01-01", "2021-01-01", 3,
+		// "HEALTH","WA", 200, "green");
+		// cf.insertCoupon(c);
+		 CustomerFacade custf = new CustomerFacade();
 		// System.out.println(c.getCoupons());
 		// database.createTable(database.sqlCompanyCoupon);
 		// Database.createTable(Database.sqlCoupon);
 		// Database.createTable(Database.sqlCompany);
 		// Database.createTable(Database.sqlCustomerCoupon);
-		 Coupon c = new Coupon(5, "INDICA", "2020-01-01", "2021-01-01", 3, "HEALTH","WA", 200, "green");
-		 cf.insertCoupon(c);
-
+		 
 		// cf.getAllCoupons();
 		// adminFacade.getAllCompanies();
 

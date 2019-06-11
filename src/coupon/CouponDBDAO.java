@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.SQLWarning;
 import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,15 +34,10 @@ public class CouponDBDAO implements CouponDao {
 			p.setString(7, coupon.getMessage());
 			p.setDouble(8, coupon.getPrice());
 			p.setString(9, coupon.getImage());
-
 			p.executeUpdate();
 			System.out.println("Coupon created : " + coupon);
 		} catch (SQLException e) {
-			if (e instanceof SQLIntegrityConstraintViolationException) {
-				System.out.println(e.getMessage());
-			} else {
-				System.out.println(e.getMessage());
-			}
+			System.out.println(e.getMessage());
 		} finally {
 			if (con != null) {
 				con.close();
@@ -50,24 +46,26 @@ public class CouponDBDAO implements CouponDao {
 	}
 
 	@Override
-	public void removeCoupon(Coupon coupon) throws Exception {
-		con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
-		String sql = "DELETE FROM Coupons WHERE id=?";
-
-		try (PreparedStatement pstm1 = con.prepareStatement(sql);) {
-			con.setAutoCommit(false);
-			pstm1.setLong(1, coupon.getId());
-			pstm1.executeUpdate();
-			con.commit();
-		} catch (SQLException e) {
-			try {
-				con.rollback();
-			} catch (SQLException e1) {
-				throw new Exception("Database error");
+	public void removeCoupon(int id) throws Exception {
+		String sql = "DELETE FROM Coupon WHERE id=?";
+		try {
+			con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
+			PreparedStatement p = con.prepareStatement(sql);
+			p.setInt(1, id);
+			int result = p.executeUpdate();
+			if (result == 0) {
+				System.out.println("Delete failed - Coupon doesn't exist");
+			} else {
+				System.out.println("Coupon deleted");
 			}
-			throw new Exception("failed to remove Coupon");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		} finally {
-			con.close();
+			if (con != null) {
+				con.close();
+			}
 		}
 	}
 
@@ -98,7 +96,7 @@ public class CouponDBDAO implements CouponDao {
 			String sql = "SELECT * FROM Coupon WHERE ID = " + id;
 			ResultSet rs = pstmt.executeQuery(sql);
 			rs.next();
-			coupon.setId(rs.getLong(1));
+			coupon.setId(rs.getInt(1));
 			coupon.setTitle(rs.getString(2));
 			coupon.setStartDate(rs.getString(3));
 			coupon.setEndDate(rs.getString(4));
@@ -125,7 +123,7 @@ public class CouponDBDAO implements CouponDao {
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Coupon coupon = new Coupon();
-				coupon.setId(rs.getLong(1));
+				coupon.setId(rs.getInt(1));
 				coupon.setTitle(rs.getString(2));
 				coupon.setStartDate(rs.getString(3));
 				coupon.setEndDate(rs.getString(4));
@@ -156,7 +154,7 @@ public class CouponDBDAO implements CouponDao {
 				ResultSet rs = pstmt.executeQuery(sql)) {
 			while (rs.next()) {
 				Coupon coupon = new Coupon();
-				coupon.setId(rs.getLong(1));
+				coupon.setId(rs.getInt(1));
 				coupon.setTitle(rs.getString(2));
 				coupon.setStartDate(rs.getString(3));
 				coupon.setEndDate(rs.getString(4));

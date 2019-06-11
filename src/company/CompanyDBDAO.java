@@ -23,23 +23,23 @@ public class CompanyDBDAO implements CompanyDao {
 
 	@Override
 	public void createCompany(Company company) throws SQLException {
-		String sql = "INSERT INTO Company (id, compName, password, email)  VALUES(?,?,?,?)";
+		String sql = "INSERT INTO Company (id, compName, password, email)" +
+				"VALUES(?,?,?,?)";
 		try {
 			con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
-			PreparedStatement pstmt = con.prepareStatement(sql);
-			pstmt.setLong(1, company.getId());
-			pstmt.setString(2, company.getCompName());
-			pstmt.setString(3, company.getPassword());
-			pstmt.setString(4, company.getEmail());
+			PreparedStatement p = con.prepareStatement(sql);
 
-			pstmt.executeUpdate();
+			p.setLong(1, company.getId());
+			p.setString(2, company.getCompName());
+			p.setString(3, company.getPassword());
+			p.setString(4, company.getEmail());
+			p.executeUpdate();
+
 			System.out.println("Company created : " + company);
+
 		} catch (SQLException e) {
-			if (e instanceof SQLIntegrityConstraintViolationException) {
-				System.out.println("duplicate company name");
-			} else {
-				System.out.println(e.getMessage());
-			}
+			System.out.print("Company already exists : ");
+			System.out.println(e.getMessage());
 		} finally {
 			if (con != null) {
 				con.close();
@@ -48,23 +48,30 @@ public class CompanyDBDAO implements CompanyDao {
 	}
 
 	@Override
-	public void removeCompany(Company company) throws Exception {
+	public void removeCompany(long id) throws SQLException {
 		con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
 		String sql = "DELETE FROM Company WHERE id = ?";
 
-		try (PreparedStatement pstm1 = con.prepareStatement(sql)) {
+		try {
+			PreparedStatement p = con.prepareStatement(sql);
 			// con.setAutoCommit(false);
-			pstm1.setLong(1, company.getId());
-			pstm1.executeUpdate();
-			// con.commit();
-		} catch (SQLException e) {
-			e.getMessage();
+			p.setLong(1, id);
+			int result = p.executeUpdate();
+			if (result == 0) {
+				System.out.println("Delete failed - Company doesn't exist");
+			} else {
+				System.out.println("Company deleted");
+			}
+		}
+		// con.commit();
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
 			// try {
 			// con.rollback();
 			// } catch (SQLException e1) {
 			// throw new Exception("Database error");
 			// }
-			throw new Exception("failed to remove company");
+			// throw new Exception("failed to remove company");
 		} finally {
 			if (con != null) {
 				con.close();
@@ -73,42 +80,51 @@ public class CompanyDBDAO implements CompanyDao {
 	}
 
 	@Override
-	public void updateCompany(Company company) throws Exception {
-		String sql = "UPDATE Company" + " SET compName ='" + company.getCompName() + "', password = '"
-				+ company.getPassword() + "', email = '" + company.getEmail() + "' WHERE ID = " + company.getId();
+	public void updateCompany(long idOld, long idNew) throws SQLException {
+		String sql = "UPDATE Company SET id = ? WHERE id = ?";
 		try {
 			con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
-			Statement stm = con.createStatement();
-			stm.executeUpdate(sql);
+			PreparedStatement p = con.prepareStatement(sql);
+			p.setLong(1, idNew);
+			p.setLong(2, idOld);
+			int result = p.executeUpdate();
+			if (result == 0) {
+				System.out.println("Update failed - id not found");
+			} else {
+				System.out.println("Company updated successfuly");
+			}
 		} catch (SQLException e) {
-			System.out.println(e);
-			throw new Exception("update Company failed");
+			System.out.println(e.getMessage());
 		} finally {
-			con.close();
+			if (con != null) {
+				con.close();
+			}
 		}
-		System.out.println("Company updated successfuly");
 	}
 
 	@Override
-	public Company getCompany(int id) throws Exception {
-		con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
+	public Company getCompany(long id) throws SQLException {
+		String sql = "SELECT * FROM Company WHERE id = ?";
 		Company company = new Company();
 		try {
-			Statement stm = con.createStatement(); 
-			String sql = "SELECT * FROM Company WHERE id = " + id;
-			ResultSet rs = stm.executeQuery(sql);
+			con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
+			PreparedStatement p = con.prepareStatement(sql);
+			p.setLong(1, id);
+			ResultSet rs = p.executeQuery();
 			rs.next();
 			company.setId(rs.getLong(1));
 			company.setCompName(rs.getString(2));
 			company.setPassword(rs.getString(3));
 			company.setEmail(rs.getString(4));
-
+			System.out.print("Company details : " + company);
 		} catch (SQLException e) {
-			throw new Exception("unable to get Company data");
+			e.printStackTrace();
+			// System.out.println(e.getMessage());
 		} finally {
-			con.close();
+			if (con != null) {
+				con.close();
+			}
 		}
-		System.out.println(company);
 		return company;
 	}
 
@@ -148,7 +164,7 @@ public class CompanyDBDAO implements CompanyDao {
 			ResultSet rs = stm.executeQuery(sql);
 			while (rs.next()) {
 				Coupon coupon = new Coupon();
-				coupon.setId(rs.getLong(1));
+				coupon.setId(rs.getInt(1));
 				coupon.setTitle(rs.getString(2));
 				coupon.setStartDate(rs.getString(3));
 				coupon.setEndDate(rs.getString(4));

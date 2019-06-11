@@ -27,8 +27,8 @@ public class CompanyFacade implements CouponClientFacade {
 		couponDBDAO.insertCoupon(coupon);
 	}
 
-	public void removeCoupon(Coupon coupon) throws Exception {
-		couponDBDAO.removeCoupon(coupon);
+	public void removeCoupon(int id) throws Exception {
+		couponDBDAO.removeCoupon(id);
 	}
 
 	public void updateCoupon(Coupon coupon) throws Exception {
@@ -48,9 +48,9 @@ public class CompanyFacade implements CouponClientFacade {
 	}
 
 	@Override
-	public CouponClientFacade login(String name, String password, String clientType) {
-		// TODO Auto-generated method stub
-		return null;
+	public void login(String name, String password, String clientType) {
+	String login = "SELECT*FROM company where compName= " +name;
+	
 	}
 
 }
