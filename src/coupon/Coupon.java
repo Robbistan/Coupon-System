@@ -4,19 +4,37 @@
 
 package coupon;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Coupon.
  */
 public class Coupon {
 
-	private int id;
+	/** The id. */
+	private long id;
+	
+	/** The title. */
 	private String title;
+	
+	/** The start date. */
 	private String startDate;
+	
+	/** The end date. */
 	private String endDate;
+	
+	/** The amount. */
 	private int amount;
+	
+	/** The type. */
 	private String type;
+	
+	/** The message. */
 	private String message;
+	
+	/** The price. */
 	private double price;
+	
+	/** The image. */
 	private String image;
 
 	/**
@@ -42,7 +60,7 @@ public class Coupon {
 	 *            the image
 	 */
 	// CTor
-	public Coupon(int id, String title, String startDate, String endDate, int amount, String type, String message,
+	public Coupon(long id, String title, String startDate, String endDate, int amount, String type, String message,
 			double price, String image) {
 		setId(id);
 		setTitle(title);
@@ -59,7 +77,6 @@ public class Coupon {
 	 * Instantiates a new coupon.
 	 */
 	public Coupon() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -68,7 +85,7 @@ public class Coupon {
 	 * @return the id
 	 */
 	// getters and setters
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -78,7 +95,7 @@ public class Coupon {
 	 * @param id
 	 *            the new id
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -110,6 +127,11 @@ public class Coupon {
 		return startDate;
 	}
 
+	/**
+	 * Sets the start date.
+	 *
+	 * @param startDate the new start date
+	 */
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
@@ -158,7 +180,7 @@ public class Coupon {
 	 * @return the type
 	 */
 	public String getType() {
-		return type;
+		return CouponType.valueOf(type).toString();
 	}
 
 	/**
@@ -168,7 +190,7 @@ public class Coupon {
 	 *            the new type
 	 */
 	public void setType(String type) {
-		this.type = type;
+		this.type = CouponType.valueOf(type).toString();
 	}
 
 	/**
@@ -227,8 +249,12 @@ public class Coupon {
 	public void setImage(String image) {
 		this.image = image;
 	}
+	
 
 	/**
+	 * To string.
+	 *
+	 * @return the string
 	 * @see java.lang.Object#toString()
 	 */
 	// toString

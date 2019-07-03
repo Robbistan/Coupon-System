@@ -11,16 +11,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Map;
 import java.util.Set;
 
 import company.Company;
 import coupon.Coupon;
 import main.Database;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CustomerDBDAO.
+ */
 public class CustomerDBDAO implements CustomerDao {
 
+	/** The con. */
 	Connection con;
 
+	/* (non-Javadoc)
+	 * @see customer.CustomerDao#createCustomer(customer.Customer)
+	 */
 	@Override
 	public void createCustomer(Customer customer) throws Exception {
 		con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
@@ -40,6 +50,9 @@ public class CustomerDBDAO implements CustomerDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see customer.CustomerDao#removeCustomer(customer.Customer)
+	 */
 	@Override
 	public void removeCustomer(Customer customer) throws Exception {
 		con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
@@ -62,6 +75,9 @@ public class CustomerDBDAO implements CustomerDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see customer.CustomerDao#updateCustomer(customer.Customer)
+	 */
 	@Override
 	public void updateCustomer(Customer customer) throws Exception {
 		con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
@@ -74,8 +90,11 @@ public class CustomerDBDAO implements CustomerDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see customer.CustomerDao#getCustomer(long)
+	 */
 	@Override
-	public Customer getCustomer(int id) throws Exception {
+	public Customer getCustomer(long id) throws Exception {
 		con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
 		Customer customer = new Customer();
 		try (Statement stm = con.createStatement()) {
@@ -94,10 +113,13 @@ public class CustomerDBDAO implements CustomerDao {
 		return customer;
 	}
 
+	/* (non-Javadoc)
+	 * @see customer.CustomerDao#getAllCustomers()
+	 */
 	@Override
-	public Set<Customer> getAllCustomers() throws Exception {
+	public Map<Long,Customer> getAllCustomers() throws Exception {
 		con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
-		Set<Customer> set = new HashSet<>();
+		Map<Long,Customer> m = new Hashtable<>();
 		String sql = "SELECT * FROM Customer ";
 		try (Statement stm = con.createStatement(); ResultSet rs = stm.executeQuery(sql)) {
 			while (rs.next()) {
@@ -106,7 +128,7 @@ public class CustomerDBDAO implements CustomerDao {
 				customer.setCustName(rs.getString(2));
 				customer.setPassword(rs.getString(3));
 
-				set.add(customer);
+				m.put(rs.getLong(1),customer);
 			}
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -114,18 +136,46 @@ public class CustomerDBDAO implements CustomerDao {
 		} finally {
 			con.close();
 		}
-		return set;
+		return m;
 	}
 
+	/* (non-Javadoc)
+	 * @see customer.CustomerDao#login(java.lang.String, java.lang.String)
+	 */
 	@Override
-	public boolean login(String custName, String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean login(String custName, String password) throws Exception {
+		boolean flag=false;
+		con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
+		String sql = "SELECT * FROM Customer WHERE custName = ?";
+		try { 
+			PreparedStatement p = con.prepareStatement(sql);
+			p.setString(1, custName);			
+			ResultSet rs = p.executeQuery() ;
+			if(rs.next()) {
+				String custPassword=rs.getString(3);
+				if (custPassword.equals(password));
+				flag=true;
+			} else {
+				throw new Exception("name or password incorrect");
+			}
+		}
+		catch (Exception e) {
+			e.getMessage();
+		}
+		finally {
+			if(con != null) {
+				con.close();
+			}
+		}
+		return flag;
 	}
 
+	/* (non-Javadoc)
+	 * @see customer.CustomerDao#getCoupons(customer.Customer)
+	 */
 	@Override
-	public Set<Coupon> getCoupons(Customer customer) {
-		// TODO Auto-generated method stub
+	public Map<Long,Coupon> getCoupons(Customer customer) {
+
 		return null;
 	}
 

@@ -1,16 +1,31 @@
+/*
+ * 
+ */
 package main;
 
+import company.Company;
+import coupon.CouponType;
 import facades.AdminFacade;
 import facades.CompanyFacade;
 import facades.CustomerFacade;
 import facades.CouponClientFacade;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Test.
+ */
 public class Test {
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws Exception the exception
+	 */
 	public static void main(String[] args) throws Exception {
 
-		Database db = new Database();
-		CouponSystem.getInstance().login("admin", "12345", null);
+//		Database db = new Database();
+//		CouponSystem.getInstance().login("admin", "12345", null);
 		
 	    		
 		
@@ -25,11 +40,11 @@ public class Test {
 //		db.dropTable(db.sqlDropTableCompanyCoupon);
 		
 
-//		 AdminFacade af = new AdminFacade();
+		 AdminFacade af = new AdminFacade();
 //		 af.getCompany(11);
 //		 af.updateCompany(1L, 10L);
 //		 Company c = new Company(123, "Toyota", "password", "email", null);
-//		 af.createCompany(c);
+		 af.getAllCompanies();
 //		 af.removeCompany(10L);
 		 
 		 
@@ -38,7 +53,7 @@ public class Test {
 		// Coupon c = new Coupon(3, "SATIVA", "2020-01-01", "2021-01-01", 3,
 		// "HEALTH","WA", 200, "green");
 		// cf.insertCoupon(c);
-		 CustomerFacade custf = new CustomerFacade();
+//		 CustomerFacade custf = new CustomerFacade();
 		// System.out.println(c.getCoupons());
 		// database.createTable(database.sqlCompanyCoupon);
 		// Database.createTable(Database.sqlCoupon);

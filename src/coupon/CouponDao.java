@@ -1,21 +1,83 @@
+/*
+ * 
+ */
 package coupon;
 
-import java.util.Set;
+import java.util.Map;
 
+/**
+ * The Interface CouponDao.
+ */
 public interface CouponDao {
 
-	void insertCoupon(Coupon coupon) throws Exception;
+	/**
+	 * Insert coupon.
+	 *
+	 * @param coupon
+	 *            the coupon
+	 * @return true, if successful
+	 * @throws Exception
+	 *             the exception
+	 */
+	boolean insertCoupon(Coupon coupon) throws Exception;
 
-	void removeCoupon(int id) throws Exception;
+	/**
+	 * Removes the coupon.
+	 *
+	 * @param id
+	 *            the id
+	 * @throws Exception
+	 *             the exception
+	 */
+	void removeCoupon(long id) throws Exception;
 
+	/**
+	 * Update coupon.
+	 *
+	 * @param coupon
+	 *            the coupon
+	 * @throws Exception
+	 *             the exception
+	 */
 	void updateCoupon(Coupon coupon) throws Exception;
 
-	Coupon getCoupon(int id) throws Exception;
+	/**
+	 * Gets the coupon.
+	 *
+	 * @param id
+	 *            the id
+	 * @return the coupon
+	 * @throws Exception
+	 *             the exception
+	 */
+	Coupon getCoupon(long id) throws Exception;
 
-	Set<Coupon> getAllCoupons() throws Exception;
+	/**
+	 * Gets the all coupons.
+	 *
+	 * @return the all coupons
+	 * @throws Exception
+	 *             the exception
+	 */
+	Map<Long, Coupon> getAllCoupons() throws Exception;
 
-	Set<Coupon> getCouponByType(CouponType couponType) throws Exception;
+	/**
+	 * Gets the coupon by type.
+	 *
+	 * @param couponType
+	 *            the coupon type
+	 * @return the coupon by type
+	 * @throws Exception
+	 *             the exception
+	 */
 
-//	void removeCoupon(Coupon coupon) throws Exception;
+	/**
+	 * @param type
+	 * @return coupons of asked type
+	 * @throws Exception
+	 */
+	Map<Long, Coupon> getCouponByType(String type) throws Exception;
+
+	// void removeCoupon(Coupon coupon) throws Exception;
 
 }

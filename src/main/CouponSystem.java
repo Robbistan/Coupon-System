@@ -1,35 +1,88 @@
+/*
+ * 
+ */
 package main;
 
 import facades.AdminFacade;
 import facades.CompanyFacade;
+import facades.CouponClientFacade;
 import facades.CustomerFacade;
 
-public class CouponSystem {
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CouponSystem.
+ */
+public class CouponSystem implements CouponClientFacade{
 	
+	/** The instance. */
 	private static CouponSystem instance = new CouponSystem();
 	
+	/** The admin facade. */
+	private AdminFacade adminFacade;
+	
+	/** The company facade. */
+	private CompanyFacade companyFacade;
+	
+	/** The customer facade. */
+	private CustomerFacade customerFacade;
+	
+	/** The connection pool. */
+	private ConnectionPool connectionPool;
+	
+	/** The daily task. */
+	private DailyTask dailyTask;
+	
+	/** The thread. */
+	private Thread thread;
+	
+	/**
+	 * Instantiates a new coupon system.
+	 */
+	private CouponSystem() {
+		adminFacade = new AdminFacade();
+		companyFacade = new CompanyFacade();
+		customerFacade = new CustomerFacade();
+		connectionPool = ConnectionPool.getInstance();
+		dailyTask = new DailyTask();
+		thread = new Thread(dailyTask);
+		thread.start();
+	}
+	
+	
+	/**
+	 * Gets the single instance of CouponSystem.
+	 *
+	 * @return single instance of CouponSystem
+	 */
 	public static CouponSystem getInstance() {
 		return instance;
 	}
-		
-	
-	public void login(String name, String password, String clientType) {
-		if(name.equalsIgnoreCase("admin") && password.equalsIgnoreCase("1234")) {
-			System.out.println("Welcome " + name);
-			AdminFacade af = new AdminFacade();
+
+	/* (non-Javadoc)
+	 * @see facades.CouponClientFacade#login(java.lang.String, java.lang.String, main.ClientType)
+	 */
+	@Override
+	public CouponClientFacade login(String name, String password, ClientType clientType) throws Exception {
+		switch(clientType) {
+		case ADMIN:
+			return adminFacade.login(name, password, clientType);
+		case COMPANY:
+			return companyFacade.login(name, password, clientType);
+		case CUSTOMER:
+			return customerFacade.login(name, password, clientType);
 		}
-		else if (name.equalsIgnoreCase("Company") && password.equalsIgnoreCase("12345")) {
-			System.out.println("welcome Company");
-			CompanyFacade cf = new CompanyFacade();
-		}
-		else if (name.equalsIgnoreCase("Customer") && password.equalsIgnoreCase("123456")) {
-			System.out.println("Welcome Customer");
-			CustomerFacade csf = new CustomerFacade();
-			
-		}
-		System.out.println("username or password incorrect");
+		return null;
 		
 	}
+		
+		/**
+		 * Shut down.
+		 */
+		public void shutDown() {
+			connectionPool.closeAllConnections();
+			dailyTask.stopTask();
+		}
+	
 
 
 }

@@ -1,6 +1,20 @@
+/*
+ * 
+ */
 package coupon;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum CouponType.
+ */
 public enum CouponType {
 
-	RESTAURANTS,ELECTRICITY,FOOD,HEALTH,SPORTS,CAMPING,TRAVELLING
+	/** The restaurants. */
+	RESTAURANTS,/** The electricity. */
+ELECTRICITY,/** The food. */
+FOOD,/** The health. */
+HEALTH,/** The sports. */
+SPORTS,/** The camping. */
+CAMPING,/** The travelling. */
+TRAVELLING
 }
