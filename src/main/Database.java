@@ -62,15 +62,15 @@ public class Database {
 	public static String sqlCompanyCoupon = "CREATE TABLE CompanyCoupon (" +
 			"CompanyId INT NOT NULL, " +
 			"CouponId INT NOT NULL, " +
-			"PRIMARY KEY (CompanyId, CouponId), " +
-			"FOREIGN KEY (CompanyId) REFERENCES Company (id), " +
-			"FOREIGN KEY (CouponId) REFERENCES Coupon (id))";
+//			"PRIMARY KEY (CompanyId, CouponId), " +
+			"FOREIGN KEY (CompanyId) REFERENCES Company (id) ON UPDATE CASCADE, " +
+			"FOREIGN KEY (CouponId) REFERENCES Coupon (id) ON UPDATE CASCADE)";
 
 	/** The sql customer coupon. */
 	public static String sqlCustomerCoupon = "CREATE TABLE CustomerCoupon (" +
 			"CustId INT NOT NULL, " +
 			"CouponId INT NOT NULL, " +
-			"PRIMARY KEY (CustId, CouponId), " +
+//			"PRIMARY KEY (CustId, CouponId), " +
 			"FOREIGN KEY (CustId) REFERENCES Customer (id), " +
 			"FOREIGN KEY (CouponId) REFERENCES Coupon (id))";
 

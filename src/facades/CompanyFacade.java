@@ -47,11 +47,11 @@ public class CompanyFacade implements CouponClientFacade {
 	public void createCoupon(Long companyId, Coupon coupon) throws Exception {
 		try {
 			couponDBDAO.createCoupon(coupon);
-			System.out.println(coupon.getId());
+			companyCouponDBDAO.createCoupon(companyId, coupon.getId());
+//			System.out.println(coupon.getId());
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		companyCouponDBDAO.createCoupon(companyId, coupon.getId());
 	}
 
 	/**

@@ -37,14 +37,13 @@ public class Test {
 		// af.getCompany(11);
 		// af.updateCompany(1L, 10L);
 		Company c = new Company(123, "Toyota", "password", "email");
-		 af.createCompany(c);
+//		 af.createCompany(c);
 		 
-//		CompanyFacade cf = new CompanyFacade();
+		CompanyFacade cf = new CompanyFacade();
 		
-//		Coupon coupon = new Coupon(1, "l", "2020-01-01", "2021-01-01", 3,
-//				"HEALTH","WA", 200, "green");
+		Coupon coupon = new Coupon(1, "l", "2020-01-01", "2021-01-01", 3, "HEALTH","WA", 200, "green");
 
-//		cf.createCoupon(1L, coupon);
+		cf.createCoupon(1L, coupon);
 //		 cf.removeCoupon(1);
 
 		// af.getAllCompanies();
