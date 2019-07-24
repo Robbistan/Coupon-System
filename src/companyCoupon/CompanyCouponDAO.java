@@ -31,6 +31,7 @@ public interface CompanyCouponDAO {
 	 * @param companyId the company id
 	 * @throws Exception the exception
 	 */
-	void insertCompany(long couponId, long companyId) throws Exception;
+
+	void createCoupon(long companyId, long couponId) throws Exception;
 
 }

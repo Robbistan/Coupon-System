@@ -31,7 +31,7 @@ public class CouponDBDAO implements CouponDao {
 	 * @see coupon.CouponDao#insertCoupon(coupon.Coupon)
 	 */
 	@Override
-	public boolean insertCoupon(Coupon coupon) throws Exception {
+	public boolean createCoupon(Coupon coupon) throws Exception {
 		boolean flag = false;
 		String sql = "INSERT INTO Coupon (id, title, startDate, endDate, amount, couponType, message, price, image) "
 				+ "VALUES(?,?,?,?,?,?,?,?,?)";
@@ -251,5 +251,37 @@ public class CouponDBDAO implements CouponDao {
 		System.out.println(m);
 		return m;
 
+	}
+
+	public void insertCouponIntoCompanyCouponTable(long companyId, long couponId) throws Exception {
+		String sql = "INSERT INTO CompanyCoupon (CompanyId, CouponId)  VALUES(?,?)";
+		try {
+			con = DriverManager.getConnection(Database.getUrl(), "root", "1234");
+			PreparedStatement p = con.prepareStatement(sql);
+			p.setLong(1, companyId);
+			p.setLong(2, couponId);
+			p.executeUpdate();
+			System.out.println("Company coupon added");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			con.close();
+		}
+	}
+
+	public void insertCouponIntoCustomerCouponTable(long custId, long couponId) throws Exception {
+		String sql = "INSERT INTO CustomerCoupon (CustId, CouponId)  VALUES(?,?)";
+		try {
+			con = DriverManager.getConnection(Database.getUrl(), "root", "1234");
+			PreparedStatement p = con.prepareStatement(sql);
+			p.setLong(1, custId);
+			p.setLong(2, couponId);
+			p.executeUpdate();
+			System.out.println("Customer coupon added");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			con.close();
+		}
 	}
 }

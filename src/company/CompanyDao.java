@@ -1,4 +1,4 @@
-/** DAO ( Data Access Object ) Interface for the Company class
+ /** DAO ( Data Access Object ) Interface for the Company class
  * 
  */
 

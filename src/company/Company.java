@@ -62,7 +62,7 @@ public class Company {
 	 */
 	public Company() {
 	}
-
+	
 	/**
 	 * Instantiates a new company.
 	 *

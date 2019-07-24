@@ -19,7 +19,7 @@ public interface CouponDao {
 	 * @throws Exception
 	 *             the exception
 	 */
-	boolean insertCoupon(Coupon coupon) throws Exception;
+	boolean createCoupon(Coupon coupon) throws Exception;
 
 	/**
 	 * Removes the coupon.
@@ -29,6 +29,7 @@ public interface CouponDao {
 	 * @throws Exception
 	 *             the exception
 	 */
+	
 	void removeCoupon(long id) throws Exception;
 
 	/**

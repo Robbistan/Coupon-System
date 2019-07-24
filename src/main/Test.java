@@ -4,6 +4,7 @@
 package main;
 
 import company.Company;
+import coupon.Coupon;
 import coupon.CouponType;
 import facades.AdminFacade;
 import facades.CompanyFacade;
@@ -19,56 +20,52 @@ public class Test {
 	/**
 	 * The main method.
 	 *
-	 * @param args the arguments
-	 * @throws Exception the exception
+	 * @param args
+	 *            the arguments
+	 * @throws Exception
+	 *             the exception
 	 */
 	public static void main(String[] args) throws Exception {
 
-//		Database db = new Database();
-//		CouponSystem.getInstance().login("admin", "12345", null);
-		
-	    		
-		
-		// db.createTable(db.sqlCustomerCoupon);
-		// db.createTable(db.sqlCompanyCoupon);
-//		 db.createDatabase();
-		// db.createTable(db.sqlCoupon);
-//		 db.dropTable(db.sqlDropTableCompany);
-//		 db.dropTable(db.sqlDropTableCoupon);
-//		 db.dropTable(db.sqlDropTableCustomer);
-		// db.dropTable(db.sqlDropTableCustomerCoupon);
-//		db.dropTable(db.sqlDropTableCompanyCoupon);
-		
+		Database db = new Database();
+		// CouponSystem.getInstance().login("admin", "12345", null);
 
-		 AdminFacade af = new AdminFacade();
-//		 af.getCompany(11);
-//		 af.updateCompany(1L, 10L);
-//		 Company c = new Company(123, "Toyota", "password", "email", null);
-		 af.getAllCompanies();
-//		 af.removeCompany(10L);
+//		 db.createDatabase();
+//		 db.dropDatabase();	
+
+		AdminFacade af = new AdminFacade();
+		// af.getCompany(11);
+		// af.updateCompany(1L, 10L);
+		Company c = new Company(123, "Toyota", "password", "email");
+		 af.createCompany(c);
 		 
-		 
-//		 CompanyFacade cf = new CompanyFacade();
+//		CompanyFacade cf = new CompanyFacade();
+		
+//		Coupon coupon = new Coupon(1, "l", "2020-01-01", "2021-01-01", 3,
+//				"HEALTH","WA", 200, "green");
+
+//		cf.createCoupon(1L, coupon);
+//		 cf.removeCoupon(1);
+
+		// af.getAllCompanies();
+		// af.removeCompany(10L);
+
 		// cf.removeCoupon(5);
-		// Coupon c = new Coupon(3, "SATIVA", "2020-01-01", "2021-01-01", 3,
-		// "HEALTH","WA", 200, "green");
-		// cf.insertCoupon(c);
-//		 CustomerFacade custf = new CustomerFacade();
+		// CustomerFacade custf = new CustomerFacade();
 		// System.out.println(c.getCoupons());
 		// database.createTable(database.sqlCompanyCoupon);
 		// Database.createTable(Database.sqlCoupon);
 		// Database.createTable(Database.sqlCompany);
 		// Database.createTable(Database.sqlCustomerCoupon);
-		 
+
 		// cf.getAllCoupons();
 		// adminFacade.getAllCompanies();
 
 		// adminFacade.getCompany(1);
 
-		// Company c = new Company(2L, "Robert ltd.", "1234", "gmail@gmail.com");
+		// Company c1 = new Company(2L, "Robert ltd.", "1234", "gmail@gmail.com");
 		// Company d = new Company(3L, "Trump ltd.", "1234", "gmail@gmail.com");
 		//
-		// adminFacade.createCompany(c);
 		// adminFacade.createCompany(d);
 
 		// adminFacade.updateCompany(c);

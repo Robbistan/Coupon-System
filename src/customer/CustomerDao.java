@@ -77,7 +77,7 @@ public interface CustomerDao {
 	/**
 	 * Login.
 	 *
-	 * @param custName the cust name
+	 * @param custName the customer name
 	 * @param password the password
 	 * @return true, if successful
 	 * @throws Exception the exception

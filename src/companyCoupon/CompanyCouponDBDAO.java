@@ -27,30 +27,36 @@ public class CompanyCouponDBDAO implements CompanyCouponDAO {
 	/** The coupon DBDAO. */
 	private CouponDBDAO couponDBDAO = new CouponDBDAO();
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see companyCoupon.CompanyCouponDAO#insertCompany(long, long)
 	 */
 	@Override
-	public void insertCompany(long couponId, long companyId) throws Exception {
+	public void createCoupon(long companyId, long couponId) throws Exception {
 		Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
-		String sql = "INSERT INTO CompanyCoupon (CompanyId, CompanyCouponId)  VALUES (?,?)";
+		String sql = "INSERT INTO CompanyCoupon (CompanyId, CouponId)  VALUES (?,?)";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setLong(1, companyId);
 			pstmt.setLong(2, couponId);
-
 			pstmt.executeUpdate();
 			System.out.println("Company coupon created");
 		} catch (SQLException e) {
-			e.getMessage();
-		} finally {
-			if (con != null) {
-				con.close();
-			}
+			System.out.println(e.getSQLState());
+			System.out.println(e.getLocalizedMessage());
+			System.out.println(e.fillInStackTrace());
+			System.out.println(e.getCause());
+			System.out.println(e.getMessage());
+		}
+		if (con != null) {
+			con.close();
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see companyCoupon.CompanyCouponDAO#getAllCompanyCoupons(long)
 	 */
 	@Override

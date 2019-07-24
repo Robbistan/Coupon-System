@@ -23,17 +23,12 @@ public class CompanyFacade implements CouponClientFacade {
 
 	/** The company DBDAO. */
 	private CompanyDBDAO companyDBDAO = new CompanyDBDAO();
-	
+
 	/** The coupon DBDAO. */
 	private CouponDBDAO couponDBDAO = new CouponDBDAO();
-	
-	/** The company coupon DBDAO. */
-	private CompanyCouponDBDAO companyCouponDBDAO= new CompanyCouponDBDAO();
-	
-	/** The c. */
-	Company c = new Company();
-	
 
+	/** The company coupon DBDAO. */
+	private CompanyCouponDBDAO companyCouponDBDAO = new CompanyCouponDBDAO();
 
 	/**
 	 * Instantiates a new company facade.
@@ -44,20 +39,28 @@ public class CompanyFacade implements CouponClientFacade {
 	/**
 	 * Insert coupon.
 	 *
-	 * @param coupon the coupon
-	 * @throws Exception the exception
+	 * @param coupon
+	 *            the coupon
+	 * @throws Exception
+	 *             the exception
 	 */
-	public void insertCoupon(Coupon coupon) throws Exception {
-		if (couponDBDAO.insertCoupon(coupon)) {
-			companyCouponDBDAO.insertCompany(coupon.getId(), c.getId());
+	public void createCoupon(Long companyId, Coupon coupon) throws Exception {
+		try {
+			couponDBDAO.createCoupon(coupon);
+			System.out.println(coupon.getId());
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 		}
+		companyCouponDBDAO.createCoupon(companyId, coupon.getId());
 	}
 
 	/**
 	 * Removes the coupon.
 	 *
-	 * @param id the id
-	 * @throws Exception the exception
+	 * @param id
+	 *            the id
+	 * @throws Exception
+	 *             the exception
 	 */
 	public void removeCoupon(long id) throws Exception {
 		couponDBDAO.removeCoupon(id);
@@ -66,8 +69,10 @@ public class CompanyFacade implements CouponClientFacade {
 	/**
 	 * Update coupon.
 	 *
-	 * @param coupon the coupon
-	 * @throws Exception the exception
+	 * @param coupon
+	 *            the coupon
+	 * @throws Exception
+	 *             the exception
 	 */
 	public void updateCoupon(Coupon coupon) throws Exception {
 		couponDBDAO.updateCoupon(coupon);
@@ -76,9 +81,11 @@ public class CompanyFacade implements CouponClientFacade {
 	/**
 	 * Gets the coupon.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the coupon
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	public Coupon getCoupon(long id) throws Exception {
 		return couponDBDAO.getCoupon(id);
@@ -88,37 +95,40 @@ public class CompanyFacade implements CouponClientFacade {
 	 * Gets the all coupons.
 	 *
 	 * @return the all coupons
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
-	public Map<Long,Coupon> getAllCoupons() throws Exception {
+	public Map<Long, Coupon> getAllCoupons() throws Exception {
 		return couponDBDAO.getAllCoupons();
 	}
 
 	/**
 	 * Gets the coupon by type.
 	 *
-	 * @param type the type
+	 * @param type
+	 *            the type
 	 * @return the coupon by type
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
-	public Map<Long,Coupon> getCouponByType(CouponType type) throws Exception {
+	public Map<Long, Coupon> getCouponByType(String type) throws Exception {
 		return couponDBDAO.getCouponByType(type);
 	}
 
-	/* (non-Javadoc)
-	 * @see facades.CouponClientFacade#login(java.lang.String, java.lang.String, main.ClientType)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see facades.CouponClientFacade#login(java.lang.String, java.lang.String,
+	 * main.ClientType)
 	 */
 	@Override
 	public CouponClientFacade login(String name, String password, ClientType clientType) throws Exception {
 		if (companyDBDAO.login(name, password)) {
-			c = companyDBDAO.getCompanyByName(name);
-			c.setCoupons(companyCouponDBDAO.getAllCompanyCoupons(c.getId()));
-			
-			
+
 			return this;
 		}
-	return null;
-	
+		return null;
+
 	}
 
 }

@@ -25,7 +25,7 @@ import main.Database;
  */
 public class CustomerDBDAO implements CustomerDao {
 
-	/** The con. */
+	/** The connection */
 	Connection con;
 
 	/* (non-Javadoc)
@@ -177,6 +177,12 @@ public class CustomerDBDAO implements CustomerDao {
 	public Map<Long,Coupon> getCoupons(Customer customer) {
 
 		return null;
+	}
+
+	@Override
+	public boolean updateCouponAmount(int amount, long id) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

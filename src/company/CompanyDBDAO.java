@@ -31,7 +31,7 @@ public class CompanyDBDAO implements CompanyDao {
 	@Override
 	public void createCompany(Company company) throws Exception {
 		String sql = "INSERT INTO Company (id, compName, password, email)" +
-				"VALUES(?,?,?,?)";
+					 "VALUES(?,?,?,?)";
 		try {
 			con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
 			PreparedStatement p = con.prepareStatement(sql);
