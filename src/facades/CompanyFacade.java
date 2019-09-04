@@ -13,6 +13,7 @@ import companyCoupon.CompanyCouponDBDAO;
 import coupon.Coupon;
 import coupon.CouponDBDAO;
 import coupon.CouponType;
+import customerCoupon.CustomerCouponDBDAO;
 import main.ClientType;
 
 // TODO: Auto-generated Javadoc
@@ -29,12 +30,14 @@ public class CompanyFacade implements CouponClientFacade {
 
 	/** The company coupon DBDAO. */
 	private CompanyCouponDBDAO companyCouponDBDAO = new CompanyCouponDBDAO();
+	
+	private CustomerCouponDBDAO customerCouponDBDAO = new CustomerCouponDBDAO();
 
 	/**
 	 * Instantiates a new company facade.
 	 */
-	public CompanyFacade() {
-	}
+//	public CompanyFacade() {
+//	}
 
 	/**
 	 * Insert coupon.
@@ -47,12 +50,18 @@ public class CompanyFacade implements CouponClientFacade {
 	public void createCoupon(Long companyId, Coupon coupon) throws Exception {
 		try {
 			couponDBDAO.createCoupon(coupon);
-			companyCouponDBDAO.createCoupon(companyId, coupon.getId());
 //			System.out.println(coupon.getId());
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+		companyCouponDBDAO.createCoupon(companyId, coupon.getCouponId());
 	}
+	
+	public void removeCoupon(long customerId, long couponId) throws Exception {
+		customerCouponDBDAO.removeCustomerCoupon(customerId);
+		couponDBDAO.removeCoupon(couponId);
+	}
+
 
 	/**
 	 * Removes the coupon.
@@ -62,9 +71,16 @@ public class CompanyFacade implements CouponClientFacade {
 	 * @throws Exception
 	 *             the exception
 	 */
-	public void removeCoupon(long id) throws Exception {
-		couponDBDAO.removeCoupon(id);
+	public void removeCouponCustomer(long couponId) throws Exception {
+		customerCouponDBDAO.removeCustomerCoupon(couponId);
+		couponDBDAO.updateCouponAmount(couponId);
 	}
+	
+	public void removeCouponCompany(long couponId, long couponCompanyId) throws Exception {
+		companyCouponDBDAO.removeCouponCompany(couponCompanyId);
+		couponDBDAO.removeCoupon(couponId);
+	}
+	
 
 	/**
 	 * Update coupon.

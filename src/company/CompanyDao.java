@@ -87,6 +87,8 @@ public interface CompanyDao {
 	 */
 	Map<Long, Coupon> getCouponsByCompName(String compName) throws Exception;
 
+	void removeCoupon (long couponId) throws Exception;
+	
 	/**
 	 * Login.
 	 *

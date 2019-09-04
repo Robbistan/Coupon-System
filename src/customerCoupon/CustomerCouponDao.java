@@ -30,5 +30,7 @@ interface CustomerCouponDao {
 	 * @param customerId the customer id
 	 * @throws Exception the exception
 	 */
-	void insertCoupon(long couponId, long customerId) throws Exception;
+	void insertCoupon(long customerId, long couponId) throws Exception;
+	
+	void removeCustomerCoupon(long customerId) throws Exception;
 }

@@ -5,7 +5,9 @@ package main;
 
 import company.Company;
 import coupon.Coupon;
+import coupon.CouponDBDAO;
 import coupon.CouponType;
+import customer.Customer;
 import facades.AdminFacade;
 import facades.CompanyFacade;
 import facades.CustomerFacade;
@@ -27,53 +29,62 @@ public class Test {
 	 */
 	public static void main(String[] args) throws Exception {
 
-		Database db = new Database();
-		// CouponSystem.getInstance().login("admin", "12345", null);
+//		Database db = new Database();
+//		 CouponSystem.getInstance().login("admin", "12345", null);
 
 //		 db.createDatabase();
-//		 db.dropDatabase();	
+//		 db.dropDatabase();
 
 		AdminFacade af = new AdminFacade();
 		// af.getCompany(11);
 		// af.updateCompany(1L, 10L);
-		Company c = new Company(123, "Toyota", "password", "email");
+//		 Company c = new Company(123L, "Toyota", "password", "email");
+//		 Company d = new Company(3L, "Trump ltd.", "1234", "gmail@gmail.com");
 //		 af.createCompany(c);
-		 
-		CompanyFacade cf = new CompanyFacade();
-		
-		Coupon coupon = new Coupon(1, "l", "2020-01-01", "2021-01-01", 3, "HEALTH","WA", 200, "green");
+//		  af.createCompany(d);
+//		 af.removeCompany(0, 0, 123L);
+//		  af.getCompany(123);
+		  af.getAllCompanies();
+//		  af.getCompanyByName("Toyota");
+		  
+		  
+		  
+		  
+		  
+		  
+//		 CompanyFacade cf = new CompanyFacade();
 
-		cf.createCoupon(1L, coupon);
-//		 cf.removeCoupon(1);
+//		Coupon coupon = new Coupon(2L, "A", "2020-01-01", "2021-01-01", 3,
+//				"HEALTH", "WA", 200, "green");
 
-		// af.getAllCompanies();
-		// af.removeCompany(10L);
+//		 cf.createCoupon(123L, coupon);
+//		 cf.removeCoupon(1L ,2L);
+//		 cf.removeCouponCompany(2L);
+//		CustomerFacade custf = new CustomerFacade();
+//		Customer f = new Customer(1, "Jinji", "wawa", null);
+//		 af.createCustomer(f);
+//		custf.purchaseCoupon(1, coupon);
 
-		// cf.removeCoupon(5);
-		// CustomerFacade custf = new CustomerFacade();
 		// System.out.println(c.getCoupons());
-		// database.createTable(database.sqlCompanyCoupon);
-		// Database.createTable(Database.sqlCoupon);
-		// Database.createTable(Database.sqlCompany);
-		// Database.createTable(Database.sqlCustomerCoupon);
 
 		// cf.getAllCoupons();
 		// adminFacade.getAllCompanies();
 
-		// adminFacade.getCompany(1);
 
 		// Company c1 = new Company(2L, "Robert ltd.", "1234", "gmail@gmail.com");
-		// Company d = new Company(3L, "Trump ltd.", "1234", "gmail@gmail.com");
 		//
-		// adminFacade.createCompany(d);
 
 		// adminFacade.updateCompany(c);
 		//
 		// System.out.println(c);
-		// database.createTable(database.sqlCompany);
 
-		// database.createTable(Database.sqlCompany);
 
+//		  db.createTable(db.sqlCompany);
+//		  db.createTable(db.sqlCompany);
+		 // database.createTable(database.sqlCompanyCoupon);
+		 // Database.createTable(Database.sqlCoupon);
+		 // Database.createTable(Database.sqlCompany);
+		 // Database.createTable(Database.sqlCustomerCoupon);
 	}
 
 }

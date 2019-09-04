@@ -7,8 +7,11 @@ import java.sql.SQLException;
 import java.util.Map;
 import company.Company;
 import company.CompanyDBDAO;
+import companyCoupon.CompanyCouponDBDAO;
+import coupon.CouponDBDAO;
 import customer.Customer;
 import customer.CustomerDBDAO;
+import customerCoupon.CustomerCouponDBDAO;
 import main.ClientType;
 
 // TODO: Auto-generated Javadoc
@@ -23,6 +26,12 @@ public class AdminFacade implements CouponClientFacade {
 	
 	/** The customer DBDAO. */
 	private CustomerDBDAO customerDBDAO = new CustomerDBDAO();
+	
+	private CompanyCouponDBDAO companyCouponDBDAO = new CompanyCouponDBDAO();
+	
+	private CouponDBDAO couponDBDAO = new CouponDBDAO();
+	
+	private CustomerCouponDBDAO customerCouponDBDAO = new CustomerCouponDBDAO();
 
 	
 	/**
@@ -56,8 +65,11 @@ public class AdminFacade implements CouponClientFacade {
 	 * @param id the id
 	 * @throws Exception the exception
 	 */
-	public void removeCompany(long id) throws Exception {
-		companyDBDAO.removeCompany(id);
+	public void removeCompany(long couponCompanyId, long couponId, long compId) throws Exception {
+		companyCouponDBDAO.removeCouponCompany(couponCompanyId);
+		customerCouponDBDAO.removeCustomerCoupon(couponId);
+		couponDBDAO.removeCoupon(couponId);
+		companyDBDAO.removeCompany(compId);
 	}
 
 	/**
@@ -80,6 +92,10 @@ public class AdminFacade implements CouponClientFacade {
 	 */
 	public Company getCompany(long id) throws Exception {
 		return companyDBDAO.getCompany(id);
+	}
+	
+	public Company getCompanyByName(String name) throws Exception {
+		return companyDBDAO.getCompanyByName(name);
 	}
 
 	/**

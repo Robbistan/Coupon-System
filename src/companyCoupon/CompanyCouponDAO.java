@@ -33,5 +33,7 @@ public interface CompanyCouponDAO {
 	 */
 
 	void createCoupon(long companyId, long couponId) throws Exception;
+	
+	
 
 }

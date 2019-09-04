@@ -50,7 +50,7 @@ public class ConnectionPool {
 	 * @return the blocking queue
 	 */
 	private BlockingQueue<Connection>createConnections(){
-		BlockingQueue<Connection>connect = new ArrayBlockingQueue <Connection>(MAX_CONNECTIONS);
+		BlockingQueue<Connection> connect = new ArrayBlockingQueue <Connection>(MAX_CONNECTIONS);
 		while(connect.size()<MAX_CONNECTIONS) {
 			try {
 				Connection connection = DriverManager.getConnection(URL, userName, password);

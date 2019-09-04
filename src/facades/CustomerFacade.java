@@ -44,16 +44,17 @@ public class CustomerFacade implements CouponClientFacade {
 	 * @param coupon the coupon
 	 * @throws Exception the exception
 	 */
-	public void purchaseCoupon(Coupon coupon) throws Exception {
-		Coupon c = couponDBDAO.getCoupon(coupon.getId());
-		if (c != null) {
-			if (couponDBDAO.updateCouponAmount(1, coupon.getId())) {
-				customerCouponDBDAO.insertCoupon(coupon.getId(), customer.getId());
+	public void purchaseCoupon(long id, Coupon coupon) throws Exception {
+//		Coupon c = couponDBDAO.getCoupon(coupon.getId());
+		if (coupon != null) {
+//			if (couponDBDAO.updateCouponAmount(1, coupon.getId())) {
+				customerCouponDBDAO.insertCoupon(id, coupon.getCouponId());
+				couponDBDAO.updateCouponAmount(1);
 				System.out.println("Coupon has been purchased successfully");
 
 			}
 		}
-	}
+//	}
 
 	/**
 	 * Gets the purchased history.

@@ -172,9 +172,9 @@ public class CompanyDBDAO implements CompanyDao {
 				String compName = rs.getString(2);
 				String password = rs.getString(3);
 				String email = rs.getString(4);
-				Company c = new Company(id, compName, password, email);
+				Company aa = new Company(id, compName, password, email);
 				long counter = 0;
-				m.put(++counter, c);
+				m.put(++counter, aa);
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -269,5 +269,29 @@ public class CompanyDBDAO implements CompanyDao {
 		}
 		return company;
 	}
+	
+	public void removeCoupon(long couponId) throws Exception {
+		String sql = "DELETE FROM Coupon WHERE id=?";
+		try {
+			con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
+			PreparedStatement p = con.prepareStatement(sql);
+			p.setLong(1, couponId);
+			int result = p.executeUpdate();
+			if (result == 0) {
+				System.out.println("Delete failed - Coupon doesn't exist");
+			} else {
+				System.out.println("Coupon deleted");
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			if (con != null) {
+				con.close();
+			}
+		}
+	}
+
 
 }

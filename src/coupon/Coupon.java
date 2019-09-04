@@ -11,7 +11,7 @@ package coupon;
 public class Coupon {
 
 	/** The id. */
-	private long id;
+	private long couponId;
 	
 	/** The title. */
 	private String title;
@@ -85,8 +85,8 @@ public class Coupon {
 	 * @return the id
 	 */
 	// getters and setters
-	public long getId() {
-		return id;
+	public long getCouponId() {
+		return couponId;
 	}
 
 	/**
@@ -95,8 +95,8 @@ public class Coupon {
 	 * @param id
 	 *            the new id
 	 */
-	public void setId(long id) {
-		this.id = id;
+	public void setId(long couponId) {
+		this.couponId = couponId;
 	}
 
 	/**
@@ -260,7 +260,7 @@ public class Coupon {
 	// toString
 	@Override
 	public String toString() {
-		return "\n[id = " + id + "\ntitle = " + title + "\nstartDate=" + startDate + "\nendDate=" + endDate
+		return "\n[id = " + couponId + "\ntitle = " + title + "\nstartDate=" + startDate + "\nendDate=" + endDate
 				+ "\namount=" + amount + "\ntype=" + type + "\nmessage=" + message + "\nprice=" + price + "\nimage="
 				+ image + "]\n\n";
 	}
