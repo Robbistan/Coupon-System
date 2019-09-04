@@ -31,6 +31,7 @@ public class Test {
 		// CouponSystem.getInstance().login("admin", "12345", null);
 
 		 db.createDatabase();
+		 String Sergey;
 //		 db.dropDatabase();	
 
 //		AdminFacade af = new AdminFacade();
