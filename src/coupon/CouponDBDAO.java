@@ -38,7 +38,7 @@ public class CouponDBDAO implements CouponDao {
 		try {
 			con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
 			PreparedStatement p = con.prepareStatement(sql);
-			p.setLong(1, coupon.getId());
+			p.setLong(1, coupon.getCouponId());
 			p.setString(2, coupon.getTitle());
 			p.setString(3, coupon.getStartDate());
 			p.setString(4, coupon.getEndDate());
@@ -66,12 +66,12 @@ public class CouponDBDAO implements CouponDao {
 	 * @see coupon.CouponDao#removeCoupon(long)
 	 */
 	@Override
-	public void removeCoupon(long id) throws Exception {
+	public void removeCoupon(long couponId) throws Exception {
 		String sql = "DELETE FROM Coupon WHERE id=?";
 		try {
 			con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
 			PreparedStatement p = con.prepareStatement(sql);
-			p.setLong(1, id);
+			p.setLong(1, couponId);
 			int result = p.executeUpdate();
 			if (result == 0) {
 				System.out.println("Delete failed - Coupon doesn't exist");
@@ -99,7 +99,7 @@ public class CouponDBDAO implements CouponDao {
 		String sql = "UPDATE Coupon " + " SET couponName ='" + coupon.getTitle() + "', startDate = '"
 				+ coupon.getStartDate() + "', endDate = " + coupon.getEndDate() + "', amount = '" + coupon.getAmount()
 				+ "', type = '" + coupon.getType() + "', message = '" + coupon.getMessage() + "', price = '"
-				+ coupon.getPrice() + "', image = '" + coupon.getImage() + "' WHERE ID = " + coupon.getId();
+				+ coupon.getPrice() + "', image = '" + coupon.getImage() + "' WHERE ID = " + coupon.getCouponId();
 		try {
 			PreparedStatement p = con.prepareStatement(sql);
 			con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
@@ -124,15 +124,14 @@ public class CouponDBDAO implements CouponDao {
 	 * @throws Exception
 	 *             the exception
 	 */
-	public boolean updateCouponAmount(int amount, long id) throws Exception {
+	public boolean updateCouponAmount(long couponId) throws Exception {
 		boolean flag = false;
 		try {
-
 			con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
-			String sql = "UPDATE Coupon SET amount = amount - ? WHERE id = ? AND amount > 0";
+			String sql = "UPDATE Coupon SET amount = amount - 1 WHERE id = ? AND amount > 0";
 			PreparedStatement p = con.prepareStatement(sql);
-			p.setInt(1, amount);
-			p.setLong(2, id);
+			// p.setInt(1, amount);
+			p.setLong(1, couponId);
 			int count = p.executeUpdate();
 			if (count > 0) {
 				flag = true;

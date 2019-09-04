@@ -35,7 +35,7 @@ public class CompanyCouponDBDAO implements CompanyCouponDAO {
 	@Override
 	public void createCoupon(long companyId, long couponId) throws Exception {
 		Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
-		String sql = "INSERT INTO CompanyCoupon (CompanyId, CouponId)  VALUES (?,?)";
+		String sql = "INSERT INTO CompanyCoupon (CompanyId, CouponId) VALUES (?,?)";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setLong(1, companyId);
@@ -87,4 +87,29 @@ public class CompanyCouponDBDAO implements CompanyCouponDAO {
 		System.out.println(m);
 		return m;
 	}
+
+	public void removeCouponCompany(long couponId) throws Exception {
+		Connection con = null;
+		String sql = "DELETE FROM CompanyCoupon WHERE CouponId= ?";
+		try {
+			con = DriverManager.getConnection(Database.getUrl(), Database.getUserName(), Database.getPassword());
+			PreparedStatement p = con.prepareStatement(sql);
+			p.setLong(1, couponId);
+			int result = p.executeUpdate();
+			if (result == 0) {
+				System.out.println("Delete failed - Coupon doesn't exist");
+			} else {
+				System.out.println("Coupon deleted");
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			if (con != null) {
+				con.close();
+			}
+		}
+	}
+
 }
